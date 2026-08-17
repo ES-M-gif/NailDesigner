@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Michely Oliveira — Nails Designer | Castelló de la Plana</title>
+<title>Michely Oliveira Nails Designer | Castelló de la Plana</title>
 <meta name="description" content="Michely Oliveira, Nail Designer en Castelló de la Plana. Alargamiento, nail art 3D, french personalizada y esmaltación en gel. Reserva por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -467,51 +467,95 @@
   .domicilio .btn-outline{border-color:var(--brown-deep); color:var(--brown-deep);}
   .domicilio .btn-outline:hover{background:var(--brown-deep); color:var(--gold);}
 
-  .testimonials{background:var(--cream-2);}
-  .test-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:26px;
+  .testimonials{background:var(--cream-2); overflow:hidden;}
+  .test-marquee{
+    width:100%;
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
   }
-  @media(max-width:860px){.test-grid{grid-template-columns:1fr;}}
-  .test-card{
-    background:var(--cream);
-    border:1px dashed var(--gold);
-    padding:44px 32px;
-    text-align:center;
+  .test-row{
     display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    min-height:250px;
+    gap:16px;
+    width:max-content;
+    padding:8px 0;
   }
-  .test-card .quote-mark{
-    font-family:'Cormorant Garamond', serif;
-    font-size:52px;
-    color:var(--gold-soft);
-    line-height:1;
-    margin-bottom:14px;
+  .test-row.row-1{ animation:scrollLeft 70s linear infinite; }
+  .test-row.row-2{ animation:scrollRight 70s linear infinite; margin-top:16px; }
+  .test-marquee:hover .test-row{ animation-play-state:paused; }
+  @keyframes scrollLeft{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @keyframes scrollRight{ from{transform:translateX(-50%);} to{transform:translateX(0);} }
+
+  .test-card{
+    position:relative;
+    flex:0 0 auto;
+    width:150px;
+    aspect-ratio:9/16;
+    border-radius:14px;
+    overflow:hidden;
+    cursor:pointer;
+    background:var(--ink);
+    border:1px solid var(--line);
+    box-shadow:0 6px 18px rgba(44,29,20,0.10);
+    transition:transform .3s ease;
   }
-  .test-card p{
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:17px;
-    color:var(--ink-soft);
-  }
-  .test-card small{
+  .test-card:hover{ transform:translateY(-4px); }
+  .test-card img, .test-card video{
+    width:100%; height:100%;
+    object-fit:cover;
     display:block;
-    margin-top:16px;
-    font-family:'Jost',sans-serif;
-    font-size:10.5px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--gold);
   }
+  .test-card .play-badge{
+    position:absolute; top:10px; right:10px;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:rgba(38,21,13,0.55);
+    backdrop-filter:blur(2px);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .test-card .play-badge svg{ width:10px; height:10px; fill:#fff; margin-left:1px; }
+  @media(max-width:640px){ .test-card{ width:118px; } }
+
   .test-note{
     margin-top:40px;
     text-align:center;
     font-size:13.5px;
     color:var(--ink-soft);
+  }
+
+  .test-lightbox{
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(38,21,13,0.92);
+    display:none;
+    align-items:center; justify-content:center;
+    padding:40px 20px;
+  }
+  .test-lightbox.open{ display:flex; }
+  .test-lightbox-inner{
+    position:relative;
+    max-width:420px; width:100%;
+    max-height:88vh;
+    border-radius:16px;
+    overflow:hidden;
+    background:#000;
+  }
+  .test-lightbox-inner img, .test-lightbox-inner video{
+    width:100%; max-height:88vh;
+    object-fit:contain;
+    display:block;
+    margin:0 auto;
+    background:#000;
+  }
+  .test-lightbox-close{
+    position:absolute; top:-44px; right:0;
+    width:34px; height:34px;
+    border:1px solid rgba(247,242,234,0.5);
+    border-radius:50%;
+    background:transparent;
+    color:var(--cream);
+    font-size:18px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
   }
 
   .faq{background:var(--cream);}
@@ -668,7 +712,7 @@
     <div class="wrap">
       <div class="hero-eyebrow">Nail Designer · Castelló de la Plana</div>
       <h1>Uñas que hablan<br>de ti antes de <em>abrir la boca</em></h1>
-      <p>Manicura de alta gama en Castelló de la Plana. Diseño, duración y perfección en cada detalle — por Michely Oliveira.</p>
+      <p>Manicura de alta gama en Castelló de la Plana. Diseño, duración y perfección en cada detalle por Michely Oliveira.</p>
       <div class="hero-actions">
         <a href="https://wa.me/5591991400471" target="_blank" class="btn btn-gold">Reservar por WhatsApp</a>
         <a href="#portfolio" class="btn btn-outline-light">Ver portfolio</a>
@@ -765,7 +809,7 @@
     </div>
 
     <div class="gallery" id="gallery">
-      <div class="g-item" data-cat="alongamento"><img src="img/alongamento_1.jpg" alt="Alargamiento en gel — french clásica"><span class="g-tag">Alargamiento</span></div>
+      <div class="g-item" data-cat="alongamento"><img src="img/alongamento_1.jpg" alt="Alargamiento en gel french clásica"><span class="g-tag">Alargamiento</span></div>
       <div class="g-item" data-cat="nailart"><img src="img/nailart_1.jpg" alt="Nail art floral 3D"><span class="g-tag">Nail Art &amp; 3D</span></div>
       <div class="g-item" data-cat="french"><img src="img/french_1.jpg" alt="French personalizada azul"><span class="g-tag">French</span></div>
       <div class="g-item" data-cat="esmaltacao"><img src="img/esmaltacao_1.jpg" alt="Esmaltación en gel color nude"><span class="g-tag">Esmaltación en Gel</span></div>
@@ -858,25 +902,84 @@
     <div class="section-head center">
       <div class="eyebrow" style="justify-content:center;">Testimonios</div>
       <h2>Lo que dicen mis clientas</h2>
-      <p style="margin-left:auto;margin-right:auto;">Esta sección está reservada — próximamente incorporaremos las reseñas reales de nuestras clientas.</p>
+      <p style="margin-left:auto;margin-right:auto;">Reseñas y stories reales, compartidas directamente por mis clientas.</p>
     </div>
-    <div class="test-grid">
-      <div class="test-card">
-        <span class="quote-mark">"</span>
-        <p>Espacio reservado para el próximo testimonio.</p>
-        <small>Próximamente</small>
+  </div>
+  <div class="test-marquee">
+    <div class="test-row row-1">
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-01.jpg"><img src="img/testimonios/testimonio-01.jpg" alt="Feedback de clienta 1" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-01.mp4"><img src="img/posters/testimonio-01.jpg" alt="Feedback en video de clienta 1" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-02.jpg"><img src="img/testimonios/testimonio-02.jpg" alt="Feedback de clienta 2" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-02.mp4"><img src="img/posters/testimonio-02.jpg" alt="Feedback en video de clienta 2" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-03.jpg"><img src="img/testimonios/testimonio-03.jpg" alt="Feedback de clienta 3" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-03.mp4"><img src="img/posters/testimonio-03.jpg" alt="Feedback en video de clienta 3" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-04.jpg"><img src="img/testimonios/testimonio-04.jpg" alt="Feedback de clienta 4" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-04.mp4"><img src="img/posters/testimonio-04.jpg" alt="Feedback en video de clienta 4" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-05.jpg"><img src="img/testimonios/testimonio-05.jpg" alt="Feedback de clienta 5" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-05.mp4"><img src="img/posters/testimonio-05.jpg" alt="Feedback en video de clienta 5" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-06.jpg"><img src="img/testimonios/testimonio-06.jpg" alt="Feedback de clienta 6" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-06.mp4"><img src="img/posters/testimonio-06.jpg" alt="Feedback en video de clienta 6" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-07.jpg"><img src="img/testimonios/testimonio-07.jpg" alt="Feedback de clienta 7" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-07.mp4"><img src="img/posters/testimonio-07.jpg" alt="Feedback en video de clienta 7" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-08.jpg"><img src="img/testimonios/testimonio-08.jpg" alt="Feedback de clienta 8" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-08.mp4"><img src="img/posters/testimonio-08.jpg" alt="Feedback en video de clienta 8" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-09.jpg"><img src="img/testimonios/testimonio-09.jpg" alt="Feedback de clienta 9" loading="lazy"></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-01.jpg"><img src="img/testimonios/testimonio-01.jpg" alt="Feedback de clienta 1" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-01.mp4"><img src="img/posters/testimonio-01.jpg" alt="Feedback en video de clienta 1" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-02.jpg"><img src="img/testimonios/testimonio-02.jpg" alt="Feedback de clienta 2" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-02.mp4"><img src="img/posters/testimonio-02.jpg" alt="Feedback en video de clienta 2" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-03.jpg"><img src="img/testimonios/testimonio-03.jpg" alt="Feedback de clienta 3" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-03.mp4"><img src="img/posters/testimonio-03.jpg" alt="Feedback en video de clienta 3" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-04.jpg"><img src="img/testimonios/testimonio-04.jpg" alt="Feedback de clienta 4" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-04.mp4"><img src="img/posters/testimonio-04.jpg" alt="Feedback en video de clienta 4" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-05.jpg"><img src="img/testimonios/testimonio-05.jpg" alt="Feedback de clienta 5" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-05.mp4"><img src="img/posters/testimonio-05.jpg" alt="Feedback en video de clienta 5" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-06.jpg"><img src="img/testimonios/testimonio-06.jpg" alt="Feedback de clienta 6" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-06.mp4"><img src="img/posters/testimonio-06.jpg" alt="Feedback en video de clienta 6" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-07.jpg"><img src="img/testimonios/testimonio-07.jpg" alt="Feedback de clienta 7" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-07.mp4"><img src="img/posters/testimonio-07.jpg" alt="Feedback en video de clienta 7" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-08.jpg"><img src="img/testimonios/testimonio-08.jpg" alt="Feedback de clienta 8" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-08.mp4"><img src="img/posters/testimonio-08.jpg" alt="Feedback en video de clienta 8" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-09.jpg"><img src="img/testimonios/testimonio-09.jpg" alt="Feedback de clienta 9" loading="lazy"></div>
       </div>
-      <div class="test-card">
-        <span class="quote-mark">"</span>
-        <p>Espacio reservado para el próximo testimonio.</p>
-        <small>Próximamente</small>
+      <div class="test-row row-2">
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-09.mp4"><img src="img/posters/testimonio-09.jpg" alt="Feedback en video de clienta 9" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-10.jpg"><img src="img/testimonios/testimonio-10.jpg" alt="Feedback de clienta 10" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-10.mp4"><img src="img/posters/testimonio-10.jpg" alt="Feedback en video de clienta 10" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-11.jpg"><img src="img/testimonios/testimonio-11.jpg" alt="Feedback de clienta 11" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-11.mp4"><img src="img/posters/testimonio-11.jpg" alt="Feedback en video de clienta 11" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-12.jpg"><img src="img/testimonios/testimonio-12.jpg" alt="Feedback de clienta 12" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-12.mp4"><img src="img/posters/testimonio-12.jpg" alt="Feedback en video de clienta 12" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-13.jpg"><img src="img/testimonios/testimonio-13.jpg" alt="Feedback de clienta 13" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-13.mp4"><img src="img/posters/testimonio-13.jpg" alt="Feedback en video de clienta 13" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-14.jpg"><img src="img/testimonios/testimonio-14.jpg" alt="Feedback de clienta 14" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-14.mp4"><img src="img/posters/testimonio-14.jpg" alt="Feedback en video de clienta 14" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-15.jpg"><img src="img/testimonios/testimonio-15.jpg" alt="Feedback de clienta 15" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-15.mp4"><img src="img/posters/testimonio-15.jpg" alt="Feedback en video de clienta 15" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-16.jpg"><img src="img/testimonios/testimonio-16.jpg" alt="Feedback de clienta 16" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-16.mp4"><img src="img/posters/testimonio-16.jpg" alt="Feedback en video de clienta 16" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-17.mp4"><img src="img/posters/testimonio-17.jpg" alt="Feedback en video de clienta 17" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-18.mp4"><img src="img/posters/testimonio-18.jpg" alt="Feedback en video de clienta 18" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-09.mp4"><img src="img/posters/testimonio-09.jpg" alt="Feedback en video de clienta 9" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-10.jpg"><img src="img/testimonios/testimonio-10.jpg" alt="Feedback de clienta 10" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-10.mp4"><img src="img/posters/testimonio-10.jpg" alt="Feedback en video de clienta 10" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-11.jpg"><img src="img/testimonios/testimonio-11.jpg" alt="Feedback de clienta 11" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-11.mp4"><img src="img/posters/testimonio-11.jpg" alt="Feedback en video de clienta 11" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-12.jpg"><img src="img/testimonios/testimonio-12.jpg" alt="Feedback de clienta 12" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-12.mp4"><img src="img/posters/testimonio-12.jpg" alt="Feedback en video de clienta 12" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-13.jpg"><img src="img/testimonios/testimonio-13.jpg" alt="Feedback de clienta 13" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-13.mp4"><img src="img/posters/testimonio-13.jpg" alt="Feedback en video de clienta 13" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-14.jpg"><img src="img/testimonios/testimonio-14.jpg" alt="Feedback de clienta 14" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-14.mp4"><img src="img/posters/testimonio-14.jpg" alt="Feedback en video de clienta 14" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-15.jpg"><img src="img/testimonios/testimonio-15.jpg" alt="Feedback de clienta 15" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-15.mp4"><img src="img/posters/testimonio-15.jpg" alt="Feedback en video de clienta 15" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="image" data-src="img/testimonios/testimonio-16.jpg"><img src="img/testimonios/testimonio-16.jpg" alt="Feedback de clienta 16" loading="lazy"></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-16.mp4"><img src="img/posters/testimonio-16.jpg" alt="Feedback en video de clienta 16" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-17.mp4"><img src="img/posters/testimonio-17.jpg" alt="Feedback en video de clienta 17" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <div class="test-card" data-type="video" data-src="video/testimonios/testimonio-18.mp4"><img src="img/posters/testimonio-18.jpg" alt="Feedback en video de clienta 18" loading="lazy"><span class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
       </div>
-      <div class="test-card">
-        <span class="quote-mark">"</span>
-        <p>Espacio reservado para el próximo testimonio.</p>
-        <small>Próximamente</small>
-      </div>
-    </div>
+  </div>
+  <div class="wrap">
     <p class="test-note">¿Ya eres clienta? Comparte tu experiencia y podría aparecer aquí.</p>
   </div>
 </section>
@@ -914,7 +1017,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q"><h3>¿Con cuánta antelación debo reservar?</h3><span class="faq-plus">+</span></button>
-        <div class="faq-a"><p>Recomiendo reservar con antelación, ya que la agenda suele completarse rápido — escríbeme por WhatsApp para consultar disponibilidad.</p></div>
+        <div class="faq-a"><p>Recomiendo reservar con antelación, ya que la agenda suele completarse rápido escríbeme por WhatsApp para consultar disponibilidad.</p></div>
       </div>
     </div>
   </div>
@@ -924,7 +1027,7 @@
   <div class="wrap">
     <div class="eyebrow">Reserva tu cita</div>
     <h2>Tu próxima manicura<br>perfecta empieza aquí</h2>
-    <p>Descubre por qué mis clientas en Castelló de la Plana confían en mí para llevar sus manos al siguiente nivel — en el estudio o en tu propia casa.</p>
+    <p>Descubre por qué mis clientas en Castelló de la Plana confían en mí para llevar sus manos al siguiente nivel en el estudio o en tu propia casa.</p>
     <a href="https://wa.me/5591991400471" target="_blank" class="btn btn-gold" style="background:var(--gold); border-color:var(--gold); color:var(--brown-deep);">Reservar por WhatsApp</a>
   </div>
 </section>
@@ -953,7 +1056,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© Michely Oliveira Nails Designer — Castelló de la Plana</span>
+      <span>© Michely Oliveira Nails Designer Castelló de la Plana</span>
       <div class="footer-social">
         <a href="https://instagram.com/michely.nailss" target="_blank">Instagram</a>
         <a href="https://wa.me/5591991400471" target="_blank">WhatsApp</a>
@@ -968,6 +1071,12 @@
     <path d="M23.4 19.5c-.36-.18-2.13-1.05-2.46-1.17-.33-.12-.57-.18-.81.18-.24.36-.93 1.17-1.14 1.41-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.07-.95-1.79-2.13-2-2.49-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.95-1.11-2.67-.29-.7-.59-.6-.81-.61h-.69c-.24 0-.63.09-.96.45-.33.36-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.54 3.87 6.15 5.43.86.37 1.53.59 2.05.76.86.27 1.64.23 2.26.14.69-.1 2.13-.87 2.43-1.71.3-.84.3-1.56.21-1.71-.09-.15-.33-.24-.69-.42z" fill="#26150D"/>
   </svg>
 </a>
+
+<div class="test-lightbox" id="testLightbox">
+  <div class="test-lightbox-inner" id="testLightboxInner">
+    <button class="test-lightbox-close" id="testLightboxClose" aria-label="Cerrar">&times;</button>
+  </div>
+</div>
 
 <script>
   const header = document.getElementById('site-header');
@@ -1004,6 +1113,43 @@
       }
     });
   });
+
+  const lightbox = document.getElementById('testLightbox');
+  const lightboxInner = document.getElementById('testLightboxInner');
+  const lightboxClose = document.getElementById('testLightboxClose');
+
+  function openLightbox(type, src){
+    lightboxInner.querySelectorAll('img,video').forEach(el => el.remove());
+    let media;
+    if(type === 'video'){
+      media = document.createElement('video');
+      media.src = src;
+      media.controls = true;
+      media.autoplay = true;
+      media.playsInline = true;
+    } else {
+      media = document.createElement('img');
+      media.src = src;
+      media.alt = 'Feedback de clienta';
+    }
+    lightboxInner.appendChild(media);
+    lightbox.classList.add('open');
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightboxInner.querySelectorAll('video').forEach(v => v.pause());
+    lightboxInner.querySelectorAll('img,video').forEach(el => el.remove());
+  }
+
+  document.querySelectorAll('.test-card').forEach(card => {
+    card.addEventListener('click', () => {
+      openLightbox(card.dataset.type, card.dataset.src);
+    });
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
 </script>
 
 </body>
