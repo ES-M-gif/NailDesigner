@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Michely Oliveira Nails Designer | Castelló de la Plana</title>
 <meta name="description" content="Michely Oliveira, Nail Designer en Castelló de la Plana. Alargamiento, nail art 3D, french personalizada y esmaltación en gel. Reserva por WhatsApp.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://es-m-gif.github.io/NailDesigner/">
+<meta property="og:title" content="Michely Oliveira Nails Designer | Castelló de la Plana">
+<meta property="og:description" content="Manicura de alta gama en Castelló de la Plana. Alargamiento, nail art 3D, french personalizada y esmaltación en gel. Reserva por WhatsApp.">
+<meta property="og:image" content="https://es-m-gif.github.io/NailDesigner/img/hero.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Michely Oliveira Nails Designer | Castelló de la Plana">
+<meta name="twitter:description" content="Manicura de alta gama en Castelló de la Plana. Reserva por WhatsApp.">
+<meta name="twitter:image" content="https://es-m-gif.github.io/NailDesigner/img/hero.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Marcellus&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -157,11 +171,46 @@
   }
   nav a:hover::after{width:100%;}
   .nav-links{display:flex; gap:32px;}
-  .burger{display:none; background:none; border:none; cursor:pointer;}
+  .burger{
+    display:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+    z-index:110;
+    position:relative;
+    padding:6px;
+  }
   .burger span{display:block; width:24px; height:1px; background:currentColor; margin:6px 0; transition:.3s;}
   header:not(.scrolled) .burger{color:#fff;}
+  header.menu-open .burger{color:var(--ink) !important;}
+  .burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger.active span:nth-child(2){opacity:0;}
+  .burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   @media(max-width:900px){
-    .nav-links{display:none;}
+    .nav-links{
+      display:flex;
+      flex-direction:column;
+      position:fixed;
+      top:0; right:0;
+      height:100vh;
+      width:min(78vw,320px);
+      background:var(--cream);
+      padding:110px 40px 40px;
+      gap:26px;
+      transform:translateX(100%);
+      transition:transform .4s ease;
+      z-index:105;
+      box-shadow:-8px 0 30px rgba(44,29,20,0.18);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{color:var(--ink) !important; font-size:15px;}
+    .nav-overlay{
+      display:none;
+      position:fixed; inset:0;
+      background:rgba(38,21,13,0.5);
+      z-index:104;
+    }
+    .nav-overlay.open{display:block;}
     .burger{display:block;}
     header .btn{display:none;}
   }
@@ -704,9 +753,10 @@
         <a href="#faq">FAQ</a>
       </div>
       <a href="https://wa.me/5591991400471" target="_blank" class="btn btn-outline" style="border-color:currentColor;">Reservar</a>
-      <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+      <button class="burger" id="burgerBtn" aria-label="menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
+  <div class="nav-overlay" id="navOverlay"></div>
 </header>
 
 <section class="hero" id="top">
@@ -1086,6 +1136,28 @@
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 60);
   });
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinks = document.querySelector('.nav-links');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function toggleMenu(){
+    const isOpen = navLinks.classList.toggle('open');
+    navOverlay.classList.toggle('open', isOpen);
+    burgerBtn.classList.toggle('active', isOpen);
+    header.classList.toggle('menu-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  function closeMenu(){
+    navLinks.classList.remove('open');
+    navOverlay.classList.remove('open');
+    burgerBtn.classList.remove('active');
+    header.classList.remove('menu-open');
+    document.body.style.overflow = '';
+  }
+  burgerBtn.addEventListener('click', toggleMenu);
+  navOverlay.addEventListener('click', closeMenu);
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
   const filterBtns = document.querySelectorAll('.filter-btn');
   const items = document.querySelectorAll('.g-item');
